@@ -2,7 +2,7 @@
   "name": "FX Profit",
   "short_name": "FX Profit",
   "description": "FXトレーダー専用の収支管理アプリです。収支金額だけでなくトレード回数やpips表示にも切り替え可能",
-  "start_url": "https://fx-profit.github.io/fx/",
+  "start_url": "https://fx-profit.github.io/jp/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#000000",
@@ -22,3 +22,4 @@
     }
   ]
 }
+
