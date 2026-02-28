@@ -501,7 +501,7 @@
             aEl.className = `summary-value ${tA < 0 ? 'negative' : ''}`;
         }
 
-        function showCumulativeModal() {
+function showCumulativeModal() {
             const targetYear = viewDate.getFullYear();
             document.getElementById('cumModalTitle').innerText = `${targetYear}年 累計収支`;
             const tbody = document.getElementById('cumTableBody');
@@ -522,10 +522,29 @@
             document.getElementById('cumModal').style.display = 'flex';
             const ctx = document.getElementById('cumChart').getContext('2d');
             if (cumChartInstance) cumChartInstance.destroy();
+
+            // データがすべて0かチェック
+            const allZero = cumPoints.every(v => v === 0);
+
             cumChartInstance = new Chart(ctx, {
                 type: 'line',
                 data: { labels: monthLabels, datasets: [{ data: cumPoints, borderColor: '#3498db', backgroundColor: 'rgba(52, 152, 219, 0.1)', borderWidth: 3, fill: true, tension: 0.3 }] },
-                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => '¥' + v.toLocaleString() } } } }
+                options: { 
+                    responsive: true, 
+                    plugins: { legend: { display: false } }, 
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            // 全データ0の場合は最大・最小を0に固定して刻みを1つにする
+                            max: allZero ? 0 : undefined,
+                            min: allZero ? 0 : undefined,
+                            ticks: { 
+                                stepSize: allZero ? 1 : undefined,
+                                callback: v => '¥' + v.toLocaleString() 
+                            } 
+                        } 
+                    } 
+                }
             });
         }
 
@@ -544,13 +563,31 @@
             document.getElementById('graphModal').style.display = 'flex';
             const ctx = document.getElementById('balanceChart').getContext('2d');
             if (myChart) myChart.destroy();
+
+            // データがすべて0かチェック
+            const allZero = dataPoints.every(v => v === 0);
+
             myChart = new Chart(ctx, {
                 type: 'line',
                 data: { labels: labels, datasets: [{ data: dataPoints, borderColor: '#3498db', backgroundColor: 'rgba(52, 152, 219, 0.1)', fill: true, tension: 0.3 }] },
-                options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { ticks: { callback: v => '¥' + v.toLocaleString() } }, x: { ticks: { maxRotation: 0, minRotation: 0, autoSkip: true, maxTicksLimit: 10 } } } }
+                options: { 
+                    responsive: true, 
+                    plugins: { legend: { display: false } }, 
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            max: allZero ? 0 : undefined,
+                            min: allZero ? 0 : undefined,
+                            ticks: { 
+                                stepSize: allZero ? 1 : undefined,
+                                callback: v => '¥' + v.toLocaleString() 
+                            } 
+                        }, 
+                        x: { ticks: { maxRotation: 0, minRotation: 0, autoSkip: true, maxTicksLimit: 10 } } 
+                    } 
+                }
             });
         }
-
         function exportCSV() {
             let csv = "\uFEFF日付,回数,pips,収支,メモ\n";
             Object.keys(currentData).sort().forEach(k => {
