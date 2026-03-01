@@ -212,7 +212,7 @@
     bottom: 0; left: 0; width: 100%;
     /* GBoard風の薄いグレー (#eceff1 や #f1f3f4) */
     background: #f1f3f4; 
-    padding: 8px 8px calc(env(safe-area-inset-bottom, 0px) + 8px) 8px;
+    padding: 8px 16px calc(env(safe-area-inset-bottom, 0px) + 8px) 16px;
     box-shadow: 0 -1px 3px rgba(0,0,0,0.1);
     z-index: 2000;
     box-sizing: border-box;
@@ -339,7 +339,7 @@
             <button onclick="kpInput('0')">0</button>
             <button onclick="kpInput('00')">00</button>
             <button onclick="kpInput('.')">.</button>
-            <button class="btn-gray" style="grid-column: span 2;" onclick="kpDelete()">削除</button>
+            <button class="btn-gray" style="grid-column: span 2;" onclick="kpDelete()">←BackSpace</button>
         </div>
     </div>
 
@@ -698,6 +698,7 @@ let currentData = JSON.parse(localStorage.getItem('fx_data_pro')) || {};
     </script>
 </body>
 </html>
+
 
 
 
