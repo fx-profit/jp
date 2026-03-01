@@ -248,12 +248,12 @@
        .btn-orange { background: #ff9f0a !important; color: white !important; }
         .keypad-header {
             display: flex;
-            justify-content: flex-end;
+            justify-content: flex-start;
             padding-bottom: 8px;
             max-width: 500px;
             margin: 0 auto;
         }
-        .done-link { color: #007aff; font-weight: bold; font-size: 0.8rem; cursor: pointer; padding: 5px 10px; }
+        .done-link { color: #3c4043; font-weight: bold; font-size: 0.8rem; cursor: pointer; padding: 5px 10px; }
     </style>
 </head>
 <body>
@@ -323,7 +323,7 @@
 
     <div id="customKeypad" class="keypad-container">
         <div class="keypad-header">
-            <div class="done-link" onclick="closeKeypad()">完了</div>
+            <div class="done-link" onclick="closeKeypad()">∨</div>
         </div>
         <div class="keypad-grid">
             <button onclick="kpInput('1')">1</button>
@@ -698,6 +698,7 @@ let currentData = JSON.parse(localStorage.getItem('fx_data_pro')) || {};
     </script>
 </body>
 </html>
+
 
 
 
