@@ -531,6 +531,14 @@ let currentData = JSON.parse(localStorage.getItem('fx_data_pro')) || {};
                 dayDiv.onclick = () => openModal(dateKey);
                 fragment.appendChild(dayDiv);
             }
+// 月末後の空白セルを埋める
+const totalCells = firstDay + lastDate;
+const remainingCells = (7 - (totalCells % 7)) % 7;
+for (let i = 0; i < remainingCells; i++) {
+    const empty = document.createElement('div');
+    empty.className = 'day other-month';
+    fragment.appendChild(empty);
+}
             grid.appendChild(fragment); // 1回のみDOM追加
             updateSummary(); updateUI();
         }
@@ -755,6 +763,7 @@ let currentData = JSON.parse(localStorage.getItem('fx_data_pro')) || {};
     </script>
 </body>
 </html>
+
 
 
 
