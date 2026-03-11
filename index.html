@@ -711,10 +711,15 @@ function showCumulativeModal() {
             for (let m = 0; m < 12; m++) {
                 let monthSum = 0;
                 const ymPrefix = `${targetYear}-${String(m + 1).padStart(2, '0')}`;
+                const hasData = Object.keys(currentData).some(k => k.startsWith(ymPrefix));
                 Object.keys(currentData).forEach(k => { if (k.startsWith(ymPrefix)) monthSum += (currentData[k].amount || 0); });
                 cumulative += monthSum;
                 const row = document.createElement('tr');
-                row.innerHTML = `<td>${m + 1}月</td><td class="${monthSum < 0 ? 'negative' : ''}">${monthSum.toLocaleString()}</td><td class="${cumulative < 0 ? 'negative' : ''}">${cumulative.toLocaleString()}</td>`;
+                if (hasData) {
+                    row.innerHTML = `<td>${m + 1}月</td><td class="${monthSum < 0 ? 'negative' : ''}">${monthSum.toLocaleString()}</td><td class="${cumulative < 0 ? 'negative' : ''}">${cumulative.toLocaleString()}</td>`;
+                } else {
+                    row.innerHTML = `<td>${m + 1}月</td><td></td><td></td>`;
+                }
                 tbody.appendChild(row);
                 monthLabels.push(`${m + 1}月`);
                 cumPoints.push(cumulative);
@@ -885,4 +890,3 @@ if (cur) lines.push(cur);
     </script>
 </body>
 </html>
-
